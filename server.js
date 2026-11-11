@@ -1,4 +1,5 @@
 
+import { getAllProjects } from "./src/models/projects.js";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -26,9 +27,24 @@ app.get("/organizations", (req, res) => {
   res.render("organizations", { title: "Organizations" });
 });
 
+
 // Service projects page
-app.get("/projects", (req, res) => {
-  res.render("projects", { title: "Service Projects" });
+app.get("/projects", async (req, res) => {
+  try {
+    const projects = await getAllProjects();
+
+    // Display retrieved projects in the terminal
+    console.log("Projects retrieved:", projects.length);
+    console.table(projects);
+
+    res.render("projects", {
+      title: "Service Projects",
+      projects,
+    });
+  } catch (error) {
+    console.error("Error retrieving service projects:", error);
+    res.status(500).send("Unable to retrieve service projects.");
+  }
 });
 
 // Categories page

@@ -8,29 +8,29 @@
   </section>
 
   <section class="card-grid">
-    <article class="card">
-      <h2>Community Clean-Up</h2>
-      <p>Help remove litter and keep public spaces clean and safe.</p>
-      <p><strong>Category:</strong> Environmental</p>
-    </article>
+    <% if (projects && projects.length > 0) { %>
 
-    <article class="card">
-      <h2>Reading and Tutoring</h2>
-      <p>Support students with reading, homework, and learning activities.</p>
-      <p><strong>Category:</strong> Educational</p>
-    </article>
+      <% projects.forEach(project => { %>
+        <article class="card">
+          <h2>
+            <%= project.formatted_date %>: <%= project.title %>
+            (<%= project.organization_name %>)
+          </h2>
 
-    <article class="card">
-      <h2>Community Health Outreach</h2>
-      <p>Help share health information and support community wellness events.</p>
-      <p><strong>Category:</strong> Health and Wellness</p>
-    </article>
+          <p><%= project.description %></p>
 
-    <article class="card">
-      <h2>Neighborhood Support</h2>
-      <p>Work with volunteers to support people and families in the community.</p>
-      <p><strong>Category:</strong> Community Service</p>
-    </article>
+          <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+          </p>
+        </article>
+      <% }) %>
+
+    <% } else { %>
+
+      <p>No service projects are currently available.</p>
+
+    <% } %>
   </section>
 </main>
 
