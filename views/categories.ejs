@@ -8,29 +8,25 @@
   </section>
 
   <section class="card-grid">
-    <article class="card">
-      <h2>Environmental</h2>
-      <p>Protect nature through clean-up campaigns, recycling, and tree planting.</p>
-      <a href="/projects">Explore Projects</a>
-    </article>
+    <% if (categories && categories.length > 0) { %>
 
-    <article class="card">
-      <h2>Educational</h2>
-      <p>Support learning through tutoring, mentoring, and reading programs.</p>
-      <a href="/projects">Explore Projects</a>
-    </article>
+      <% categories.forEach(category => { %>
 
-    <article class="card">
-      <h2>Community Service</h2>
-      <p>Help local residents through outreach, volunteering, and community improvement.</p>
-      <a href="/projects">Explore Projects</a>
-    </article>
+        <article class="card">
+          <h2><%= category.category_name %></h2>
 
-    <article class="card">
-      <h2>Health and Wellness</h2>
-      <p>Promote healthy living through wellness events and health awareness activities.</p>
-      <a href="/projects">Explore Projects</a>
-    </article>
+          <p><%= category.category_description %></p>
+
+          <a href="/projects">Explore Projects</a>
+        </article>
+
+      <% }) %>
+
+    <% } else { %>
+
+      <p>No categories are currently available.</p>
+
+    <% } %>
   </section>
 </main>
 

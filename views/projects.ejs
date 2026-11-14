@@ -12,6 +12,7 @@
 
       <% projects.forEach(project => { %>
         <article class="card">
+
           <h2>
             <%= project.formatted_date %>: <%= project.title %>
             (<%= project.organization_name %>)
@@ -23,6 +24,12 @@
             <strong>Location:</strong>
             <%= project.location %>
           </p>
+
+          <p>
+            <strong>Categories:</strong>
+            <%= project.categories %>
+          </p>
+
         </article>
       <% }) %>
 

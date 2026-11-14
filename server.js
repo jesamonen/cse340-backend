@@ -1,8 +1,11 @@
 
-import { getAllProjects } from "./src/models/projects.js";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+
+import { getAllProjects } from "./src/models/projects.js";
+import { getAllOrganizations } from "./src/models/organizations.js";
+import { getAllCategories } from "./src/models/categories.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,47 +20,83 @@ app.set("views", path.join(__dirname, "views"));
 // Serve CSS, images, and other static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// Home page
+// ==========================================
+// HOME PAGE
+// ==========================================
+
 app.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
-// Organizations page
-app.get("/organizations", (req, res) => {
-  res.render("organizations", { title: "Organizations" });
+// ==========================================
+// ORGANIZATIONS PAGE
+// ==========================================
+
+app.get("/organizations", async (req, res) => {
+  try {
+    const organizations = await getAllOrganizations();
+
+    res.render("organizations", {
+      title: "Organizations",
+      organizations,
+    });
+
+  } catch (error) {
+    console.error("Error retrieving organizations:", error);
+    res.status(500).send("Unable to retrieve organizations.");
+  }
 });
 
+// ==========================================
+// SERVICE PROJECTS PAGE
+// ==========================================
 
-// Service projects page
 app.get("/projects", async (req, res) => {
   try {
     const projects = await getAllProjects();
-
-    // Display retrieved projects in the terminal
-    console.log("Projects retrieved:", projects.length);
-    console.table(projects);
 
     res.render("projects", {
       title: "Service Projects",
       projects,
     });
+
   } catch (error) {
     console.error("Error retrieving service projects:", error);
     res.status(500).send("Unable to retrieve service projects.");
   }
 });
 
-// Categories page
-app.get("/categories", (req, res) => {
-  res.render("categories", { title: "Service Project Categories" });
+// ==========================================
+// CATEGORIES PAGE
+// ==========================================
+
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await getAllCategories();
+
+    res.render("categories", {
+      title: "Service Project Categories",
+      categories,
+    });
+
+  } catch (error) {
+    console.error("Error retrieving categories:", error);
+    res.status(500).send("Unable to retrieve categories.");
+  }
 });
 
-// Handle pages that do not exist
+// ==========================================
+// 404 ERROR HANDLER
+// ==========================================
+
 app.use((req, res) => {
   res.status(404).send("Page not found");
 });
 
-// Start the server
+// ==========================================
+// START SERVER
+// ==========================================
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
