@@ -1,22 +1,30 @@
-
-<%- include('partials/header') %>
+﻿<%- include('partials/header') %>
 
 <main class="container">
+
   <section class="page-heading">
     <h1>Community Service Projects</h1>
     <p>Explore activities that help improve lives and strengthen communities.</p>
   </section>
 
   <section class="card-grid">
+
     <% if (projects && projects.length > 0) { %>
 
       <% projects.forEach(project => { %>
+
         <article class="card">
 
           <h2>
-            <%= project.formatted_date %>: <%= project.title %>
-            (<%= project.organization_name %>)
+            <a href="/project/<%= project.project_id %>">
+              <%= project.formatted_date %>: <%= project.title %>
+            </a>
           </h2>
+
+          <p>
+            <strong>Organization:</strong>
+            <%= project.organization_name %>
+          </p>
 
           <p><%= project.description %></p>
 
@@ -30,7 +38,12 @@
             <%= project.categories %>
           </p>
 
+          <a href="/project/<%= project.project_id %>">
+            View Project Details
+          </a>
+
         </article>
+
       <% }) %>
 
     <% } else { %>
@@ -38,7 +51,9 @@
       <p>No service projects are currently available.</p>
 
     <% } %>
+
   </section>
+
 </main>
 
 <%- include('partials/footer') %>
