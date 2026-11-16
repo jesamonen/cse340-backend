@@ -1,5 +1,4 @@
-
-import pool from "../database.js";
+import pool from "./db.js";
 
 // Get all service projects with their organization names and categories
 const getAllProjects = async () => {

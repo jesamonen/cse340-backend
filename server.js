@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import { getAllProjects } from "./src/models/projects.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
 import { getAllCategories } from "./src/models/categories.js";
+import { testConnection } from "./src/models/db.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -97,6 +98,13 @@ app.use((req, res) => {
 // START SERVER
 // ==========================================
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+testConnection()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Server startup failed:", error.message);
+    process.exit(1);
+  });

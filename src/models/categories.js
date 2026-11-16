@@ -1,5 +1,5 @@
 
-import pool from "../database.js";
+import pool from "./db.js";
 
 // Get all categories from the database
 const getAllCategories = async () => {
