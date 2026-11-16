@@ -1,23 +1,32 @@
-
-<%- include('partials/header') %>
+﻿<%- include('partials/header') %>
 
 <main class="container">
+
   <section class="page-heading">
     <h1>Service Project Categories</h1>
     <p>Explore volunteer opportunities by area of interest.</p>
   </section>
 
   <section class="card-grid">
+
     <% if (categories && categories.length > 0) { %>
 
       <% categories.forEach(category => { %>
 
         <article class="card">
-          <h2><%= category.category_name %></h2>
+
+          <h2>
+            <a href="/category/<%= category.category_id %>">
+              <%= category.category_name %>
+            </a>
+          </h2>
 
           <p><%= category.category_description %></p>
 
-          <a href="/projects">Explore Projects</a>
+          <a href="/category/<%= category.category_id %>">
+            View Category Projects
+          </a>
+
         </article>
 
       <% }) %>
@@ -27,7 +36,9 @@
       <p>No categories are currently available.</p>
 
     <% } %>
+
   </section>
+
 </main>
 
 <%- include('partials/footer') %>

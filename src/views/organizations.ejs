@@ -1,4 +1,3 @@
-
 <%- include('partials/header') %>
 
 <main class="container">
@@ -20,7 +19,11 @@
             loading="lazy"
           >
 
-          <h2><%= organization.name %></h2>
+          <h2>
+            <a href="/organization/<%= organization.organization_id %>">
+              <%= organization.name %>
+            </a>
+          </h2>
 
           <p><%= organization.description %></p>
 
@@ -28,6 +31,10 @@
             <strong>Contact:</strong>
             <%= organization.contact_email %>
           </p>
+
+          <a href="/organization/<%= organization.organization_id %>">
+            View Organization
+          </a>
 
         </article>
 
